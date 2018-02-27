@@ -28,11 +28,12 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/",
-            "Service\\": "src/Service/",
-            "Contract\\": "src/Contract/",
-            "Action\\": "src/Action/",
-            "Entity\\": "src/Entity/"
+            "Tests\\": "./tests/",
+            "Service\\": "./src/Service/",
+            "Contract\\": "./src/Contract/",
+            "Action\\": "./src/Action/",
+            "Entity\\": "./src/Entity/",
+            "Command\\": "./src/Command/"
         }
     },
     "config": {

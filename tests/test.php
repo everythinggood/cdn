@@ -8,8 +8,11 @@
 
 require __DIR__.'/../vendor/autoload.php';
 
+require __DIR__ . '/../src/Command/CreateSupervisorConfigFile.php';
 
-while(true){
-    var_export(\Service\ProcessService::$workNumbers);
-    sleep(10);
-}
+//while(true){
+//    var_export(\Service\ProcessService::$workNumbers);
+//    sleep(10);
+//}
+
+new \Command\CreateSupervisorConfigFile();
