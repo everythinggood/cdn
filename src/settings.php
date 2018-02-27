@@ -1,4 +1,10 @@
 <?php
+
+$env = new Dotenv\Dotenv(__DIR__ . '/../');
+$env->load();
+
+$projectName = getenv('PROJECT_NAME');
+
 return [
     'settings' => [
         'displayErrorDetails' => true, // set to false in production
@@ -11,9 +17,14 @@ return [
 
         // Monolog settings
         'logger' => [
-            'name' => 'slim-app',
+            'name' => $projectName,
             'path' => isset($_ENV['docker']) ? 'php://stdout' : __DIR__ . '/../logs/app.log',
             'level' => \Monolog\Logger::DEBUG,
+        ],
+
+        'mongodb' => [
+            'database' => getenv('MONGO_DATABASE'),
+            'uri' => getenv('MONGO_URI')
         ],
     ],
 ];
