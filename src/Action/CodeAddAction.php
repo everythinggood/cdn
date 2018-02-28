@@ -29,10 +29,13 @@ class CodeAddAction implements ActionInterface
      */
     private $logger;
 
+    private $supervisorDir;
+
     public function __construct(ContainerInterface $container)
     {
         $this->dm = $container[Container::NAME_DATA_MANAGER];
         $this->logger = $container[Container::NAME_LOGGER];
+        $this->supervisorDir = $container->get('settings')['supervisor']['config_dir'];
     }
 
     /**
@@ -60,9 +63,9 @@ class CodeAddAction implements ActionInterface
 
         $result = shell_exec("/usr/bin/php {$realDir}/bin/console.php app:create:supervisor-config -c {$code}");
 
-        if(!file_exists("/etc/supervisor/conf.d/{$code}.conf")){
+        if(!file_exists($this->supervisorDir."/conf.d/{$code}.conf")){
 
-            $cp = shell_exec("cp {$realDir}/supervisor/conf.d/{$code}.conf /etc/supervisor/conf.d/");
+            $cp = shell_exec("cp {$realDir}/supervisor/conf.d/{$code}.conf ".$this->supervisorDir."/conf.d/");
 
             $worker = shell_exec('sudo /usr/bin/supervisorctl update all ');
         }

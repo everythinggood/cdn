@@ -26,5 +26,9 @@ return [
             'database' => getenv('MONGO_DATABASE'),
             'uri' => getenv('MONGO_URI')
         ],
+
+        'supervisor' => [
+            'config_dir' => getenv('SUPERVISOR_DIR')
+        ],
     ],
 ];
