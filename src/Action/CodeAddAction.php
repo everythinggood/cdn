@@ -60,15 +60,19 @@ class CodeAddAction implements ActionInterface
 
         $result = shell_exec("/usr/bin/php {$realDir}/bin/console.php app:create:supervisor-config -c {$code}");
 
-        $cp = shell_exec("cp {$realDir}/supervisor/conf.d/{$code}.conf /etc/supervisor/conf.d/");
+        if(!file_exists("/etc/supervisor/conf.d/{$code}.conf")){
 
-        $worker = shell_exec('sudo /usr/bin/supervisorctl update all ');
+            $cp = shell_exec("cp {$realDir}/supervisor/conf.d/{$code}.conf /etc/supervisor/conf.d/");
+
+            $worker = shell_exec('sudo /usr/bin/supervisorctl update all ');
+        }
+
 
         /** @var Response $response */
         return $response->withJson([
             "result"=>$result,
-            "cp"=>$cp,
-            "worker"=>$worker,
+            "cp"=>$cp?:null,
+            "worker"=>$worker?:null,
             "code"=>$code
         ]);
 
