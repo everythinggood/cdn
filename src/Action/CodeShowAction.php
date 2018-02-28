@@ -51,11 +51,11 @@ class CodeShowAction implements ActionInterface
     {
         /** @var Request  $request*/
 
-//        return $this->view->render($response,'index.phtml',[
-//            "router"=>$this->router
-//        ]);
+        return $this->view->render($response,'index.phtml',[
+            "router"=>$this->router
+        ]);
         /** @var Response $response*/
-        return $response->withJson($request->getServerParams());
+//        return $response->withJson($request->getServerParams());
     }
 
 }
