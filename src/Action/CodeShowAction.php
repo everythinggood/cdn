@@ -16,6 +16,7 @@ use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Http\Request;
+use Slim\Http\Response;
 use Slim\Router;
 use Slim\Views\PhpRenderer;
 
@@ -49,9 +50,12 @@ class CodeShowAction implements ActionInterface
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args)
     {
         /** @var Request  $request*/
-        return $this->view->render($response,'index.phtml',[
-            "router"=>$this->router
-        ]);
+
+//        return $this->view->render($response,'index.phtml',[
+//            "router"=>$this->router
+//        ]);
+        /** @var Response $response*/
+        return $response->withJson($request->getServerParams());
     }
 
 }

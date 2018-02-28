@@ -44,6 +44,7 @@ class CodeAddAction implements ActionInterface
      */
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args)
     {
+
         /** @var Request $request */
         $code = $request->getParam('code');
 
@@ -53,13 +54,21 @@ class CodeAddAction implements ActionInterface
 
         $realDir = realpath(__DIR__.'/../..');
 
+        if(file_exists($realDir."/supervisor/conf.d/{$code}.conf")){
+            throw new \Exception("{$code}.conf is exist");
+        }
+
         $result = shell_exec("/usr/bin/php {$realDir}/bin/console.php app:create:supervisor-config -c {$code}");
 
-//        $worker = shell_exec('');
+        $cp = shell_exec("cp {$realDir}/supervisor/conf.d/{$code}.conf /etc/supervisor/conf.d/");
+
+        $worker = shell_exec('sudo /usr/bin/supervisorctl update all ');
 
         /** @var Response $response */
         return $response->withJson([
             "result"=>$result,
+            "cp"=>$cp,
+            "worker"=>$worker,
             "code"=>$code
         ]);
 
