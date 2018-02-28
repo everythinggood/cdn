@@ -27,6 +27,7 @@ $console = new \Symfony\Component\Console\Application('cdn Console ');
 $console->setHelperSet($helperSet);
 
 $console->addCommands(array(
+
     new \Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateDocumentsCommand(),
     new \Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateHydratorsCommand(),
     new \Doctrine\ODM\MongoDB\Tools\Console\Command\GenerateProxiesCommand(),
@@ -37,7 +38,11 @@ $console->addCommands(array(
     new \Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\DropCommand(),
     new \Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\UpdateCommand(),
 
+    new \Command\CreateSupervisorConfigFile(),
+
 ));
+
+
 try {
     $console->run();
 } catch (Exception $exception) {
